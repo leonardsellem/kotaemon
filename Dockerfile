@@ -17,16 +17,20 @@ RUN apt-get update -qqy && \
       g++ \
       poppler-utils \
       libpoppler-dev \
+      curl \
     && apt-get clean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Rust and Cargo
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONIOENCODING=UTF-8
 
 WORKDIR /app
-
 
 FROM base_image as dev
 
@@ -35,5 +39,7 @@ RUN --mount=type=ssh pip install --no-cache-dir -e "libs/kotaemon[all]" \
     && pip install --no-cache-dir -e "libs/ktem" \
     && pip install --no-cache-dir graphrag future \
     && pip install --no-cache-dir "pdfservices-sdk@git+https://github.com/niallcm/pdfservices-python-sdk.git@bump-and-unfreeze-requirements"
+
+EXPOSE 7860
 
 ENTRYPOINT ["gradio", "app.py"]
