@@ -215,7 +215,9 @@ SETTINGS_REASONING = {
 KH_INDEX_TYPES = [
     "ktem.index.file.FileIndex",
     "ktem.index.file.graph.GraphRAGIndex",
+    "ktem.index.telegram.index.TelegramIndex",  # Add this line
 ]
+
 KH_INDICES = [
     {
         "name": "File",
@@ -238,5 +240,13 @@ KH_INDICES = [
             "private": False,
         },
         "index_type": "ktem.index.file.graph.GraphRAGIndex",
+    },
+    {
+        "name": "Telegram",
+        "config": {
+            "supported_file_types": "",  # Telegram messages don't have file types
+            "private": False,
+        },
+        "index_type": "ktem.index.telegram.index.TelegramIndex",
     },
 ]
