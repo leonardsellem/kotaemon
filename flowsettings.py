@@ -244,7 +244,7 @@ KH_INDICES = [
     {
         "name": "Telegram",
         "config": {
-            "supported_file_types": "",  # Telegram messages don't have file types
+            "supported_file_types": "",
             "private": False,
         },
         "index_type": "ktem.index.file.pipelines.telegram.TelegramIndex",
